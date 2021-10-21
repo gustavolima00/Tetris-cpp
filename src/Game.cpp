@@ -1,13 +1,22 @@
 #include "../include/Game.hpp"
+#include "../include/Tile.hpp"
 #include <SFML/Graphics.hpp>
+#include <string>
 using namespace sf;
+using namespace std;
+// Constants 
+
+const int WINDOW_WIDTH = 320;
+const int WINDOW_HEIGHT = 480;
 
 
 Game::Game(){
 }
 
 void Game::start(){
-    RenderWindow window(VideoMode(320, 480), "The game!");
+    RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "The game!");
+    
+    Tile tile = Tile();
     while(window.isOpen()){
         Event e;
         while(window.pollEvent(e)){
@@ -15,5 +24,8 @@ void Game::start(){
                 window.close();
             }
         }
+        window.clear(Color::White);
+        window.draw(tile.getSprite());
+        window.display();
     }
 }
