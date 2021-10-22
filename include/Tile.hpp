@@ -32,13 +32,16 @@ public:
         J,
         O
     };
-    Tile();
+    
+    Tile(int x=0, int y=0, Color color = Color::Blue);
     ~Tile();
-    void draw(RenderWindow *window, Color color = Color::Blue, Type type = Type::I);
+    void draw(RenderWindow *window);
     void moveDown();
-    void moveLeft(int limit);
-    void moveRight(int limit);
+    void moveLeft();
+    void moveRight();
     int getWidth();
     int getHeight();
+    int getX();
+    int getY();
 };
 #endif

@@ -1,11 +1,11 @@
 #include "../include/Game.hpp"
 #include "../include/Tile.hpp"
+#include "../include/Figure.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <time.h>
 using namespace sf;
 using namespace std;
-// Constants
 
 const int WINDOW_WIDTH = 320;
 const int WINDOW_HEIGHT = 480;
@@ -25,11 +25,14 @@ Game::~Game()
 
 void Game::start()
 {
-    Tile tile = Tile();
+    Figure figure;
     float timer = 0;
-    const float DELAY = 0.3;
+    
     while (window->isOpen())
     {
+        const bool downIsPressed = Keyboard::isKeyPressed(Keyboard::Down);
+        const float DELAY = downIsPressed ? 0.05 : 0.3;
+
         float time = clock->getElapsedTime().asSeconds();
         clock->restart();
         timer += time;
@@ -44,17 +47,18 @@ void Game::start()
             if (e.type == Event::KeyPressed)
             {
                 if (e.key.code == Keyboard::Left)
-                    tile.moveLeft(0);
+                    figure.moveLeft();
                 if (e.key.code == Keyboard::Right)
-                    tile.moveRight(WINDOW_WIDTH - tile.getWidth());
+                    figure.moveRight();
             }
         }
         
+
         window->clear(Color::White);
-        tile.draw(window, Tile::Color::Purple, Tile::Type::J);
+        figure.draw(window);
         if (timer > DELAY)
         {
-            tile.moveDown();
+            figure.moveDown();
             timer = 0;
         }
         window->display();
