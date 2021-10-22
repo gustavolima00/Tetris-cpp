@@ -20,6 +20,7 @@ class Figure{
         J,
         O
     };
+    static Type getRandomType();
     Figure(Tile::Color color = Tile::Color::Blue, Type type = Type::I);
     ~Figure();
     void draw(RenderWindow *window);

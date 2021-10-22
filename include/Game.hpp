@@ -4,6 +4,7 @@
 #include <vector>
 #include "../include/Tile.hpp"
 #include "../include/Figure.hpp"
+#include <time.h> 
 using namespace sf;
 
 class Game

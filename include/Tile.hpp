@@ -22,17 +22,8 @@ public:
         LightBlue,
         Orange
     };
-    enum Type
-    {
-        I,
-        Z,
-        S,
-        T,
-        L,
-        J,
-        O
-    };
-    
+    static Tile::Color getRandomColor();
+
     Tile(int x=0, int y=0, Color color = Color::Blue);
     ~Tile();
     void draw(RenderWindow *window);

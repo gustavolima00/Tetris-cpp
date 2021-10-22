@@ -121,3 +121,6 @@ int Figure::maxY()
     }
     return ans;
 }
+Figure::Type Figure::getRandomType(){
+    return static_cast<Figure::Type>(rand()%7);
+}

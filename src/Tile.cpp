@@ -13,8 +13,9 @@ const map<Tile::Color, int> COLLOR_X1 = {
     {Tile::Color::Purple, TILE_SIZE * 1},
     {Tile::Color::Red, TILE_SIZE * 2},
     {Tile::Color::Green, TILE_SIZE * 3},
-    {Tile::Color::LightBlue, TILE_SIZE * 4},
-    {Tile::Color::Orange, TILE_SIZE * 5}};
+    {Tile::Color::Yellow, TILE_SIZE * 4},
+    {Tile::Color::LightBlue, TILE_SIZE * 5},
+    {Tile::Color::Orange, TILE_SIZE * 6}};
 
 void Tile::loadTexture()
 {
@@ -61,4 +62,8 @@ int Tile::getX(){
 
 int Tile::getY(){
     return yPos;
+}
+
+Tile::Color Tile::getRandomColor(){
+    return static_cast<Tile::Color>(rand()%7);
 }

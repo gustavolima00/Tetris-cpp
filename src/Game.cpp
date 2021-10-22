@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace sf;
 using namespace std;
-
+#include <stdlib.h> 
 const int WINDOW_WIDTH = 320;
 const int WINDOW_HEIGHT = 480;
 const int MAX_Y = 25;
@@ -43,7 +43,7 @@ void Game::buildNewFigure()
         tiles.push_back(tile);
     }
     delete figure;
-    figure = new Figure();
+    figure = new Figure(Tile::getRandomColor(), Figure::getRandomType());
 }
 
 bool Game::figureWillColideDown()
