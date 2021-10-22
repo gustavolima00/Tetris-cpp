@@ -28,5 +28,6 @@ class Figure{
     void moveRight();
     int getWidth();
     int getHeight();
+    bool isAboveATile(Tile* tile);
 };
 #endif

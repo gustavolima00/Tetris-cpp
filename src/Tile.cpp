@@ -56,11 +56,11 @@ void Tile::moveRight(){
 }
 
 int Tile::getX(){
-    return xPos * TILE_SIZE;
+    return xPos;
 }
 
 int Tile::getY(){
-    return xPos * TILE_SIZE;
+    return yPos;
 }
 
 int Tile::getWidth(){

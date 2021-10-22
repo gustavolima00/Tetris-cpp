@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <time.h>
+#include <iostream>
 using namespace sf;
 using namespace std;
 
@@ -15,19 +16,23 @@ Game::Game()
 {
     window = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINWOW_LABEL);
     clock = new Clock();
+    figure = new Figure();
+    Tile* tile = new Tile(0, 20, Tile::Color::Orange);
+    tiles.push_back(tile);
 }
 
 Game::~Game()
 {
     delete window;
     delete clock;
+    for(auto &tile:tiles)
+        delete tile;
+    delete figure;
 }
 
 void Game::start()
 {
-    Figure figure;
     float timer = 0;
-    
     while (window->isOpen())
     {
         const bool downIsPressed = Keyboard::isKeyPressed(Keyboard::Down);
@@ -47,19 +52,31 @@ void Game::start()
             if (e.type == Event::KeyPressed)
             {
                 if (e.key.code == Keyboard::Left)
-                    figure.moveLeft();
+                    figure->moveLeft();
                 if (e.key.code == Keyboard::Right)
-                    figure.moveRight();
+                    figure->moveRight();
             }
         }
-        
 
         window->clear(Color::White);
-        figure.draw(window);
+        figure->draw(window);
         if (timer > DELAY)
         {
-            figure.moveDown();
+            bool canGoDown = true;
+            for (auto &tile : tiles)
+            {
+                if (figure->isAboveATile(tile)){
+                    cout << "True" << endl;
+                    canGoDown = false;
+                }
+            }
+            if (canGoDown)
+                figure->moveDown();
             timer = 0;
+        }
+        for (auto &tile : tiles)
+        {
+            tile->draw(window);
         }
         window->display();
     }
