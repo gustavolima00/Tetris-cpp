@@ -13,7 +13,9 @@ class Game
     vector<Tile*> tiles;
     Figure* figure;
     void buildNewFigure();
-    bool figureIsColiding();
+    bool figureWillColideDown();
+    bool figureWillColideLeft();
+    bool figureWillColideRight();
 public:
     Game();
     ~Game();

@@ -28,6 +28,8 @@ class Figure{
     void moveRight();
     int maxX();
     int maxY();
-    bool isAboveATile(Tile* tile);
+    bool willColideDown(Tile* tile);
+    bool willColideLeft(Tile* tile);
+    bool willColideRight(Tile* tile);
 };
 #endif

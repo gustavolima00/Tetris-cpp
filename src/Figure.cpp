@@ -73,7 +73,7 @@ void Figure::moveRight()
         tile->moveRight();
     }
 }
-bool Figure::isAboveATile(Tile *otherTile)
+bool Figure::willColideDown(Tile *otherTile)
 {
     for (auto &tile : tiles)
     {
@@ -82,7 +82,29 @@ bool Figure::isAboveATile(Tile *otherTile)
     }
     return false;
 }
-int Figure::maxX(){
+
+bool Figure::willColideLeft(Tile *otherTile)
+{
+    for (auto &tile : tiles)
+    {
+        if (tile->getY() == otherTile->getY() and tile->getX() == otherTile->getX() + 1)
+            return true;
+    }
+    return false;
+}
+
+bool Figure::willColideRight(Tile *otherTile)
+{
+    for (auto &tile : tiles)
+    {
+        if (tile->getY() + 1 == otherTile->getY() and tile->getX() + 1 == otherTile->getX())
+            return true;
+    }
+    return false;
+}
+
+int Figure::maxX()
+{
     int ans = 0;
     for (auto &tile : tiles)
     {
@@ -90,7 +112,8 @@ int Figure::maxX(){
     }
     return ans;
 }
-int Figure::maxY(){
+int Figure::maxY()
+{
     int ans = 0;
     for (auto &tile : tiles)
     {

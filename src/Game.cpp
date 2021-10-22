@@ -11,6 +11,9 @@ using namespace std;
 const int WINDOW_WIDTH = 320;
 const int WINDOW_HEIGHT = 480;
 const int MAX_Y = 25;
+const int MIN_X = 0;
+const int MAX_X = 17;
+
 const string WINWOW_LABEL = "Tetris";
 
 Game::Game()
@@ -43,13 +46,39 @@ void Game::buildNewFigure()
     figure = new Figure();
 }
 
-bool Game::figureIsColiding()
+bool Game::figureWillColideDown()
 {
     for (auto &tile : tiles)
     {
-        if (figure->isAboveATile(tile))
+        if (figure->willColideDown(tile))
             return true;
         if (figure->maxY() >= MAX_Y)
+            return true;
+    }
+
+    return false;
+}
+
+bool Game::figureWillColideLeft()
+{
+    for (auto &tile : tiles)
+    {
+        if (figure->willColideLeft(tile))
+            return true;
+        if (figure->maxX() <= MIN_X)
+            return true;
+    }
+
+    return false;
+}
+
+bool Game::figureWillColideRight()
+{
+    for (auto &tile : tiles)
+    {
+        if (figure->willColideRight(tile))
+            return true;
+        if (figure->maxX() >= MAX_X)
             return true;
     }
 
@@ -78,9 +107,16 @@ void Game::start()
             if (e.type == Event::KeyPressed)
             {
                 if (e.key.code == Keyboard::Left)
-                    figure->moveLeft();
+                {
+                    if (!figureWillColideLeft())
+                        figure->moveLeft();
+                }
+
                 if (e.key.code == Keyboard::Right)
-                    figure->moveRight();
+                {
+                    if (!figureWillColideRight())
+                        figure->moveRight();
+                }
             }
         }
 
@@ -88,7 +124,7 @@ void Game::start()
         figure->draw(window);
         if (timer > DELAY)
         {
-            if (figureIsColiding())
+            if (figureWillColideDown())
             {
                 buildNewFigure();
             }
