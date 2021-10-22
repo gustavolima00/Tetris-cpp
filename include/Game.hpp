@@ -6,6 +6,7 @@ using namespace sf;
 class Game
 {
     RenderWindow *window;
+    Clock *clock;
 
 public:
     Game();

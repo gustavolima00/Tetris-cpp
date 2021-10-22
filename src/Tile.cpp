@@ -38,20 +38,22 @@ const map<Tile::Type, vector<int>> FIGURES_SHAPES = {
 
 void Tile::loadTexture()
 {
-    this->texture = new Texture();
-    this->texture->loadFromFile(TILES_PATH);
+    texture = new Texture();
+    texture->loadFromFile(TILES_PATH);
 }
 
 Tile::Tile()
 {
-    this->loadTexture();
-    this->sprite = new Sprite(*this->texture);
+    loadTexture();
+    sprite = new Sprite(*texture);
+    xPos = 0;
+    yPos = 0;
 }
 
 Tile::~Tile()
 {
-    delete this->texture;
-    delete this->sprite;
+    delete texture;
+    delete sprite;
 }
 
 void Tile::draw(RenderWindow *window, Color color, Type type)
@@ -61,7 +63,27 @@ void Tile::draw(RenderWindow *window, Color color, Type type)
     {
         int x = position % 2;
         int y = position / 2;
-        sprite->setPosition(x * TILE_SIZE, y * TILE_SIZE);
+        sprite->setPosition(xPos + x * TILE_SIZE, yPos + y * TILE_SIZE);
         window->draw(*sprite);
     }
+}
+
+void Tile::moveDown(){
+    yPos += TILE_SIZE;
+}
+
+void Tile::moveLeft(int limit){
+    xPos = max(xPos-TILE_SIZE, limit);
+}
+
+void Tile::moveRight(int limit){
+    xPos = min(xPos+TILE_SIZE, limit);
+}
+
+int Tile::getWidth(){
+    return 2*TILE_SIZE;
+}
+
+int Tile::getHeight(){
+    return 4*TILE_SIZE;
 }

@@ -7,6 +7,8 @@ class Tile
 {
     Texture *texture;
     Sprite *sprite;
+    int xPos;
+    int yPos;
     void loadTexture();
 
 public:
@@ -33,5 +35,10 @@ public:
     Tile();
     ~Tile();
     void draw(RenderWindow *window, Color color = Color::Blue, Type type = Type::I);
+    void moveDown();
+    void moveLeft(int limit);
+    void moveRight(int limit);
+    int getWidth();
+    int getHeight();
 };
 #endif
