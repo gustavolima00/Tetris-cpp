@@ -4,28 +4,37 @@
 #include <string>
 using namespace sf;
 using namespace std;
-// Constants 
+// Constants
 
 const int WINDOW_WIDTH = 320;
 const int WINDOW_HEIGHT = 480;
+const string WINWOW_LABEL = "Tetris";
 
-
-Game::Game(){
+Game::Game()
+{
+    window = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINWOW_LABEL);
 }
 
-void Game::start(){
-    RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "The game!");
-    
+Game::~Game()
+{
+    delete window;
+}
+
+void Game::start()
+{
     Tile tile = Tile();
-    while(window.isOpen()){
+    while (window->isOpen())
+    {
         Event e;
-        while(window.pollEvent(e)){
-            if(e.type == Event::Closed){
-                window.close();
+        while (window->pollEvent(e))
+        {
+            if (e.type == Event::Closed)
+            {
+                window->close();
             }
         }
-        window.clear(Color::White);
-        window.draw(tile.getSprite());
-        window.display();
+        window->clear(Color::White);
+        tile.draw(window, Tile::Color::Purple, Tile::Type::J);
+        window->display();
     }
 }

@@ -34,3 +34,6 @@
 # Project files
 build/bin/*
 runner
+
+## Vscode
+.vscode

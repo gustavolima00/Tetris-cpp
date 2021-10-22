@@ -5,11 +5,12 @@ using namespace sf;
 
 class Tile
 {
-    Texture* texture;
-    Sprite* sprite;
+    Texture *texture;
+    Sprite *sprite;
     void loadTexture();
+
 public:
-    enum TileCollor
+    enum Color
     {
         Blue,
         Purple,
@@ -19,8 +20,18 @@ public:
         LightBlue,
         Orange
     };
-    Tile(TileCollor color = TileCollor::Blue);
+    enum Type
+    {
+        I,
+        Z,
+        S,
+        T,
+        L,
+        J,
+        O
+    };
+    Tile();
     ~Tile();
-    Sprite getSprite();
+    void draw(RenderWindow *window, Color color = Color::Blue, Type type = Type::I);
 };
 #endif
