@@ -20,3 +20,7 @@ To run just run the runner bin file
 ```
 ./runner
 ```
+
+## Inspiration 
+
+This project was inspirited on this video https://youtu.be/zH_omFPqMO4
