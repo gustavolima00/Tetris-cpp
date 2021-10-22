@@ -10,6 +10,7 @@ using namespace std;
 
 const int WINDOW_WIDTH = 320;
 const int WINDOW_HEIGHT = 480;
+const int MAX_Y = 25;
 const string WINWOW_LABEL = "Tetris";
 
 Game::Game()
@@ -17,7 +18,7 @@ Game::Game()
     window = new RenderWindow(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINWOW_LABEL);
     clock = new Clock();
     figure = new Figure();
-    Tile* tile = new Tile(0, 20, Tile::Color::Orange);
+    Tile *tile = new Tile(0, 20, Tile::Color::Orange);
     tiles.push_back(tile);
 }
 
@@ -25,9 +26,34 @@ Game::~Game()
 {
     delete window;
     delete clock;
-    for(auto &tile:tiles)
+    for (auto &tile : tiles)
         delete tile;
     delete figure;
+}
+
+void Game::buildNewFigure()
+{
+    while (!figure->tiles.empty())
+    {
+        Tile *tile = figure->tiles.back();
+        figure->tiles.pop_back();
+        tiles.push_back(tile);
+    }
+    delete figure;
+    figure = new Figure();
+}
+
+bool Game::figureIsColiding()
+{
+    for (auto &tile : tiles)
+    {
+        if (figure->isAboveATile(tile))
+            return true;
+        if (figure->maxY() >= MAX_Y)
+            return true;
+    }
+
+    return false;
 }
 
 void Game::start()
@@ -62,16 +88,14 @@ void Game::start()
         figure->draw(window);
         if (timer > DELAY)
         {
-            bool canGoDown = true;
-            for (auto &tile : tiles)
+            if (figureIsColiding())
             {
-                if (figure->isAboveATile(tile)){
-                    cout << "True" << endl;
-                    canGoDown = false;
-                }
+                buildNewFigure();
             }
-            if (canGoDown)
+            else
+            {
                 figure->moveDown();
+            }
             timer = 0;
         }
         for (auto &tile : tiles)

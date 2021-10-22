@@ -82,3 +82,19 @@ bool Figure::isAboveATile(Tile *otherTile)
     }
     return false;
 }
+int Figure::maxX(){
+    int ans = 0;
+    for (auto &tile : tiles)
+    {
+        ans = max(ans, tile->getX());
+    }
+    return ans;
+}
+int Figure::maxY(){
+    int ans = 0;
+    for (auto &tile : tiles)
+    {
+        ans = max(ans, tile->getY());
+    }
+    return ans;
+}

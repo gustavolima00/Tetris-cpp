@@ -26,8 +26,8 @@ class Figure{
     void moveDown();
     void moveLeft();
     void moveRight();
-    int getWidth();
-    int getHeight();
+    int maxX();
+    int maxY();
     bool isAboveATile(Tile* tile);
 };
 #endif

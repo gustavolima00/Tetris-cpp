@@ -62,11 +62,3 @@ int Tile::getX(){
 int Tile::getY(){
     return yPos;
 }
-
-int Tile::getWidth(){
-    return TILE_SIZE;
-}
-
-int Tile::getHeight(){
-    return TILE_SIZE;
-}

@@ -39,8 +39,6 @@ public:
     void moveDown();
     void moveLeft();
     void moveRight();
-    int getWidth();
-    int getHeight();
     int getX();
     int getY();
 };

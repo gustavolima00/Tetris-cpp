@@ -12,6 +12,8 @@ class Game
     Clock *clock;
     vector<Tile*> tiles;
     Figure* figure;
+    void buildNewFigure();
+    bool figureIsColiding();
 public:
     Game();
     ~Game();
