@@ -28,6 +28,7 @@ const map<Figure::Type, vector<int>> FIGURES_SHAPES = {
 
 Figure::Figure(Tile::Color color, Type type)
 {
+    clock = new Clock();
     for (int position : FIGURES_SHAPES.at(type))
     {
         int x = position % 2;
@@ -43,6 +44,7 @@ Figure::~Figure()
     {
         delete tile;
     }
+    delete clock;
 }
 
 void Figure::draw(RenderWindow *window)

@@ -81,22 +81,15 @@ bool Game::figureWillColideRight()
         if (figure->maxX() >= MAX_X)
             return true;
     }
-
     return false;
 }
 
 void Game::start()
 {
-    float timer = 0;
     while (window->isOpen())
     {
         const bool downIsPressed = Keyboard::isKeyPressed(Keyboard::Down);
         const float DELAY = downIsPressed ? 0.05 : 0.3;
-
-        float time = clock->getElapsedTime().asSeconds();
-        clock->restart();
-        timer += time;
-
         Event e;
         while (window->pollEvent(e))
         {
@@ -122,18 +115,6 @@ void Game::start()
 
         window->clear(Color::White);
         figure->draw(window);
-        if (timer > DELAY)
-        {
-            if (figureWillColideDown())
-            {
-                buildNewFigure();
-            }
-            else
-            {
-                figure->moveDown();
-            }
-            timer = 0;
-        }
         for (auto &tile : tiles)
         {
             tile->draw(window);

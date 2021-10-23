@@ -3,11 +3,14 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iostream>
 using namespace sf;
 using namespace std;
 
 const string TILES_PATH = "assets/tetris/tiles.png";
 const int TILE_SIZE = 18;
+const int TICK_MILISECONDS = 1000;
+
 const map<Tile::Color, int> COLLOR_X1 = {
     {Tile::Color::Blue, TILE_SIZE * 0},
     {Tile::Color::Purple, TILE_SIZE * 1},
@@ -25,21 +28,30 @@ void Tile::loadTexture()
 
 Tile::Tile(int x, int y, Tile::Color color)
 {
+    clock = new Clock();
     loadTexture();
     sprite = new Sprite(*texture);
     sprite->setTextureRect(IntRect(COLLOR_X1.at(color), 0, TILE_SIZE, TILE_SIZE));
     xPos = x;
     yPos = y;
+    gravityTick = 0;
 }
 
 Tile::~Tile()
 {
     delete texture;
     delete sprite;
+    delete clock;
 }
 
 void Tile::draw(RenderWindow *window)
 {
+    int time = clock->getElapsedTime().asMilliseconds();
+    
+    if(time>500){
+        clock->restart();
+        moveDown();
+    }
     sprite->setPosition(xPos*TILE_SIZE, yPos*TILE_SIZE);
     window->draw(*sprite);   
 }

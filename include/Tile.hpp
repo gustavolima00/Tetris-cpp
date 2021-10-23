@@ -7,6 +7,8 @@ class Tile
 {
     Texture *texture;
     Sprite *sprite;
+    Clock* clock;
+    int gravityTick;
     int xPos;
     int yPos;
     void loadTexture();

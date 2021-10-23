@@ -8,6 +8,7 @@ using namespace sf;
 using namespace std;
 
 class Figure{
+    Clock* clock;
     public:
     vector<Tile*> tiles;
     enum Type
