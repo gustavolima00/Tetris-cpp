@@ -86,48 +86,57 @@ bool Game::figureWillColideRight()
     return false;
 }
 
+void Game::manageEvents()
+{
+    Event e;
+    while (window->pollEvent(e))
+    {
+        if (e.type == Event::Closed)
+        {
+            window->close();
+        }
+        if (e.type == Event::KeyPressed)
+        {
+            if (e.key.code == Keyboard::Left)
+            {
+                if (!figureWillColideLeft())
+                    figure->moveLeft();
+            }
+
+            if (e.key.code == Keyboard::Right)
+            {
+                if (!figureWillColideRight())
+                    figure->moveRight();
+            }
+        }
+    }
+}
+
+void Game::updateScreen()
+{
+    window->clear(Color::White);
+    figure->draw(window);
+    for (auto &tile : tiles)
+    {
+        tile->draw(window);
+    }
+    window->display();
+}
+
 void Game::start()
 {
     while (window->isOpen())
     {
-        const bool downIsPressed = Keyboard::isKeyPressed(Keyboard::Down);
-        if (downIsPressed)
+        manageEvents();
+
+        if (Keyboard::isKeyPressed(Keyboard::Down))
             figure->moveFast();
         else
             figure->moveNormal();
 
-        Event e;
-        while (window->pollEvent(e))
-        {
-            if (e.type == Event::Closed)
-            {
-                window->close();
-            }
-            if (e.type == Event::KeyPressed)
-            {
-                if (e.key.code == Keyboard::Left)
-                {
-                    if (!figureWillColideLeft())
-                        figure->moveLeft();
-                }
-
-                if (e.key.code == Keyboard::Right)
-                {
-                    if (!figureWillColideRight())
-                        figure->moveRight();
-                }
-            }
-        }
         if (figureWillColideDown())
-        {
             buildNewFigure();
-        }
-        window->clear(Color::White);
-        figure->draw(window);
-        for (auto &tile : tiles)
-        {
-            tile->draw(window);
-        }
-        window->display();
+            
+        updateScreen();
     }
 }

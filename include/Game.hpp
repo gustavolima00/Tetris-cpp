@@ -17,6 +17,9 @@ class Game
     bool figureWillColideDown();
     bool figureWillColideLeft();
     bool figureWillColideRight();
+    void manageEvents();
+    void updateScreen();
+    
 public:
     Game();
     ~Game();
