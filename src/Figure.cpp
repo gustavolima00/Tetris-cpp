@@ -7,6 +7,7 @@
 #include <vector>
 using namespace sf;
 using namespace std;
+
 /**
  *  The numbers on FIGURES_SHAPES are referents of this shape
  * 
@@ -123,6 +124,21 @@ int Figure::maxY()
     }
     return ans;
 }
+
+void Figure::moveFast(){
+    for (auto &tile : tiles)
+    {
+        tile->setGravityTick(30);
+    }
+}
+
+void Figure::moveNormal(){
+    for (auto &tile : tiles)
+    {
+        tile->setGravityTick(500);
+    }
+}
+
 Figure::Type Figure::getRandomType(){
     return static_cast<Figure::Type>(rand()%7);
 }

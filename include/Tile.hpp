@@ -8,7 +8,8 @@ class Tile
     Texture *texture;
     Sprite *sprite;
     Clock* clock;
-    int gravityTick;
+    bool gravity;
+    int gravityTickInMiliseconds;
     int xPos;
     int yPos;
     void loadTexture();
@@ -30,9 +31,12 @@ public:
     ~Tile();
     void draw(RenderWindow *window);
     void moveDown();
+    
     void moveLeft();
     void moveRight();
     int getX();
     int getY();
+    void setGravity(bool gravity);
+    void setGravityTick(int gravityTickInMiliseconds);
 };
 #endif

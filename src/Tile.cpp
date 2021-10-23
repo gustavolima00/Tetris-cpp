@@ -34,7 +34,8 @@ Tile::Tile(int x, int y, Tile::Color color)
     sprite->setTextureRect(IntRect(COLLOR_X1.at(color), 0, TILE_SIZE, TILE_SIZE));
     xPos = x;
     yPos = y;
-    gravityTick = 0;
+    gravityTickInMiliseconds = 500;
+    gravity = true;
 }
 
 Tile::~Tile()
@@ -48,10 +49,11 @@ void Tile::draw(RenderWindow *window)
 {
     int time = clock->getElapsedTime().asMilliseconds();
     
-    if(time>500){
+    if(time>gravityTickInMiliseconds){
         clock->restart();
-        moveDown();
+        if(gravity) moveDown();
     }
+
     sprite->setPosition(xPos*TILE_SIZE, yPos*TILE_SIZE);
     window->draw(*sprite);   
 }
@@ -78,4 +80,12 @@ int Tile::getY(){
 
 Tile::Color Tile::getRandomColor(){
     return static_cast<Tile::Color>(rand()%7);
+}
+
+void Tile::setGravity(bool _gravity){
+    this->gravity = _gravity;
+}
+
+void Tile::setGravityTick(int _gravityTickInMiliseconds){
+    gravityTickInMiliseconds = _gravityTickInMiliseconds;
 }

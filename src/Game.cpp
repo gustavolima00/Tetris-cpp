@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace sf;
 using namespace std;
-#include <stdlib.h> 
+#include <stdlib.h>
 const int WINDOW_WIDTH = 320;
 const int WINDOW_HEIGHT = 480;
 const int MAX_Y = 25;
@@ -22,6 +22,7 @@ Game::Game()
     clock = new Clock();
     figure = new Figure();
     Tile *tile = new Tile(0, 20, Tile::Color::Orange);
+    tile->setGravity(false);
     tiles.push_back(tile);
 }
 
@@ -40,6 +41,7 @@ void Game::buildNewFigure()
     {
         Tile *tile = figure->tiles.back();
         figure->tiles.pop_back();
+        tile->setGravity(false);
         tiles.push_back(tile);
     }
     delete figure;
@@ -89,7 +91,11 @@ void Game::start()
     while (window->isOpen())
     {
         const bool downIsPressed = Keyboard::isKeyPressed(Keyboard::Down);
-        const float DELAY = downIsPressed ? 0.05 : 0.3;
+        if (downIsPressed)
+            figure->moveFast();
+        else
+            figure->moveNormal();
+
         Event e;
         while (window->pollEvent(e))
         {
@@ -112,7 +118,10 @@ void Game::start()
                 }
             }
         }
-
+        if (figureWillColideDown())
+        {
+            buildNewFigure();
+        }
         window->clear(Color::White);
         figure->draw(window);
         for (auto &tile : tiles)

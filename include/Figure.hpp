@@ -33,5 +33,7 @@ class Figure{
     bool willColideDown(Tile* tile);
     bool willColideLeft(Tile* tile);
     bool willColideRight(Tile* tile);
+    void moveFast();
+    void moveNormal();
 };
 #endif
